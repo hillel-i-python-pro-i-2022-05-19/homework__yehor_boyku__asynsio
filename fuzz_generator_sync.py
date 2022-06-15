@@ -1,24 +1,17 @@
-import random
 import concurrent.futures
+from itertools import combinations_with_replacement, product
+from typing import Iterator
+
 from settings import CHARACTERS
 from init_logging import init_logging
 
 
-def generator_word(length: int = 10, conditions: str = CHARACTERS):
-    some_word = ''
-    for _ in range(length):
-        some_word.append(random.choice(conditions))
-    return "".join(some_word)
+def generator_word(length: int = 5, conditions: str = CHARACTERS):
+    for i in product(conditions, repeat=length):
+        print(''.join(i))
 
 
-def generator_sync(quantity: int) -> list[str]:
-    list_with_word = []
-    for _ in range(quantity):
-        list_with_word.append(generator_word())
-    return list_with_word
-
-
-def calculate_process(quantity) -> str:
+def calculate_process(quantity) -> Iterator[None]:
     with concurrent.futures.ProcessPoolExecutor() as worker:
         results = worker.map(
             generator_word,
@@ -29,10 +22,10 @@ def calculate_process(quantity) -> str:
 
 
 def main():
-    start = 10
-    quantity = list(range(start, start + 1000))
-    print(calculate_process(quantity=quantity))
-    # print()
+    start = 5
+    quantity = list(range(start))
+    calculate_process(quantity=quantity)
+    print()
 
 
 if __name__ == "__main__":
