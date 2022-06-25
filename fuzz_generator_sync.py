@@ -1,14 +1,14 @@
 import concurrent.futures
-from itertools import combinations_with_replacement, product
 from typing import Iterator
 
 from settings import CHARACTERS
 from init_logging import init_logging
+from test import generate, DEFAULT_ALPHABET
 
 
-def generator_word(length: int = 5, conditions: str = CHARACTERS):
-    for i in product(conditions, repeat=length):
-        print(''.join(i))
+def generator_word(length: int = 5, quantity: int = len(CHARACTERS) + 1, conditions: str = CHARACTERS):
+    generate(word_length=length, quantity=quantity, alphabet=conditions)
+    print(generate)
 
 
 def calculate_process(quantity) -> Iterator[None]:
@@ -22,9 +22,11 @@ def calculate_process(quantity) -> Iterator[None]:
 
 
 def main():
-    start = 5
-    quantity = list(range(start))
-    calculate_process(quantity=quantity)
+    alphabet = DEFAULT_ALPHABET
+    word_length = 5
+    quantity = len(CHARACTERS)
+    combinations = list(range(quantity, quantity + 10))
+    calculate_process(quantity=combinations)
     print()
 
 
