@@ -1,6 +1,8 @@
 from string import ascii_lowercase, digits
 from typing import Final, TypeAlias, Iterable
 
+from init_logging import init_logging
+
 T_ALPHABET: TypeAlias = str
 T_WORD: TypeAlias = str
 
@@ -51,4 +53,5 @@ def main():
 
 
 if __name__ == '__main__':
+    init_logging()
     main()
